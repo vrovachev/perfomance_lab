@@ -1,7 +1,7 @@
 import methods
 
 
-class scenario(methods.Methods):
+class Scenario(methods.Methods):
 
     def scenario1(self):
         self._create_server('name0')
@@ -14,3 +14,7 @@ class scenario(methods.Methods):
         self._create_server('name7')
         self._create_server('name8')
         self._create_server('name9')
+
+if __name__ == '__main__':
+    qwe = Scenario()
+    qwe.scenario1()

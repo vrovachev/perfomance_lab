@@ -7,6 +7,15 @@ def register_opt_group(conf, opt_group, options):
     for opt in options:
         conf.register_opt(opt, group=opt_group.name)
 
+compute_group = cfg.OptGroup(name='compute',
+                             title='Compute Service Options')
+
+ComputeGroup = [
+    cfg.StrOpt('catalog_type',
+               default='compute',
+               help="Catalog type of the Compute service."),
+]
+
 
 identity_group = cfg.OptGroup(name='identity',
                               title="Keystone Configuration Options")
@@ -51,7 +60,7 @@ IdentityGroup = [
 ]
 
 other_group = cfg.OptGroup(name='other',
-                                 title="Other Configuration Options")
+                           title="Other Configuration Options")
 
 OtherGroup = [
     cfg.StrOpt('image_id',
@@ -66,6 +75,7 @@ OtherGroup = [
 
 
 def register_opts():
+    register_opt_group(cfg.CONF, compute_group, ComputeGroup)
     register_opt_group(cfg.CONF, identity_group, IdentityGroup)
     register_opt_group(cfg.CONF, other_group, OtherGroup)
 
@@ -74,6 +84,7 @@ class Config(object):
     """Provides OpenStack configuration information."""
 
     def _set_attrs(self):
+        self.compute = cfg.CONF.compute
         self.identity = cfg.CONF.identity
         self.other = cfg.CONF.other
 
