@@ -78,8 +78,13 @@ class Config(object):
         self.compute_feature_enabled = cfg.CONF['compute-feature-enabled']
         self.identity = cfg.CONF.identity
 
-    def __init__(self, parse_conf=True, config_path=None):
-        config_files=['{path}/{name}'.format(os.getcwd(), "config.conf")]
+    def __init__(self):
+        config_file='{path}/{name}'.format(path=os.getcwd(),
+                                           name="config.conf")
+        if not os.path.isfile(config_file):
+            config_files = []
+        else:
+            config_files = [config_file]
         cfg.CONF([], project='perfomance', default_config_files=config_files)
         register_opts()
         self._set_attrs()
