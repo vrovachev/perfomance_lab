@@ -50,7 +50,7 @@ IdentityGroup = [
                secret=True),
 ]
 
-other_param_group = cfg.OptGroup(name='other',
+other_group = cfg.OptGroup(name='other',
                                  title="Other Configuration Options")
 
 OtherGroup = [
@@ -67,16 +67,15 @@ OtherGroup = [
 
 def register_opts():
     register_opt_group(cfg.CONF, identity_group, IdentityGroup)
-    register_opt_group(cfg.CONF, other_param_group, OtherGroup)
+    register_opt_group(cfg.CONF, other_group, OtherGroup)
 
 
 class Config(object):
     """Provides OpenStack configuration information."""
 
     def _set_attrs(self):
-        self.compute = cfg.CONF.compute
-        self.compute_feature_enabled = cfg.CONF['compute-feature-enabled']
         self.identity = cfg.CONF.identity
+        self.other = cfg.CONF.other
 
     def __init__(self):
         config_file='{path}/{name}'.format(path=os.getcwd(),
